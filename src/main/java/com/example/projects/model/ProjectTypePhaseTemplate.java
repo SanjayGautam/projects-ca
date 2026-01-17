@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,31 +14,23 @@ import jakarta.persistence.Table;
 public class ProjectTypePhaseTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_type_phase_template_id")
     private Long id;
-    @Column(name = "project_type_id")
-    private Long projectTypeId;
-    @Column(name = "name")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "project_type_id", nullable = false)
+    private ProjectType projectType;
+
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
-    @Column(name = "default_start_offset_days")
-    private Integer defaultStartOffsetDays;
-    @Column(name = "default_duration_days")
-    private Integer defaultDurationDays;
+
+    @Column(name = "description", length = 500)
+    private String description;
+
+    @Column(name = "sequence_number", nullable = false)
+    private Integer sequenceNumber;
 
     public ProjectTypePhaseTemplate() {
-    }
-
-    public ProjectTypePhaseTemplate(
-            Long id,
-            Long projectTypeId,
-            String name,
-            Integer defaultStartOffsetDays,
-            Integer defaultDurationDays
-    ) {
-        this.id = id;
-        this.projectTypeId = projectTypeId;
-        this.name = name;
-        this.defaultStartOffsetDays = defaultStartOffsetDays;
-        this.defaultDurationDays = defaultDurationDays;
     }
 
     public Long getId() {
@@ -47,12 +41,12 @@ public class ProjectTypePhaseTemplate {
         this.id = id;
     }
 
-    public Long getProjectTypeId() {
-        return projectTypeId;
+    public ProjectType getProjectType() {
+        return projectType;
     }
 
-    public void setProjectTypeId(Long projectTypeId) {
-        this.projectTypeId = projectTypeId;
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
     }
 
     public String getName() {
@@ -63,19 +57,19 @@ public class ProjectTypePhaseTemplate {
         this.name = name;
     }
 
-    public Integer getDefaultStartOffsetDays() {
-        return defaultStartOffsetDays;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDefaultStartOffsetDays(Integer defaultStartOffsetDays) {
-        this.defaultStartOffsetDays = defaultStartOffsetDays;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getDefaultDurationDays() {
-        return defaultDurationDays;
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
     }
 
-    public void setDefaultDurationDays(Integer defaultDurationDays) {
-        this.defaultDurationDays = defaultDurationDays;
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 }

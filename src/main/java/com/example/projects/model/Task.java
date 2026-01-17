@@ -10,38 +10,34 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "projects")
-public class Project {
+@Table(name = "tasks")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id")
+    @Column(name = "task_id")
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "project_type_id", nullable = false)
-    private ProjectType projectType;
+    @JoinColumn(name = "phase_id", nullable = false)
+    private Phase phase;
 
     @Column(name = "name", length = 150, nullable = false)
     private String name;
 
-    @Column(name = "description", length = 500)
+    @Column(name = "description", length = 1000)
     private String description;
 
-    @Column(name = "start_date")
-    private LocalDate startDate;
+    @Column(name = "status", length = 30)
+    private String status;
 
-    @Column(name = "end_date")
-    private LocalDate endDate;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChecklistItem> checklistItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Phase> phases = new ArrayList<>();
-
-    public Project() {
+    public Task() {
     }
 
     public Long getId() {
@@ -52,12 +48,12 @@ public class Project {
         this.id = id;
     }
 
-    public ProjectType getProjectType() {
-        return projectType;
+    public Phase getPhase() {
+        return phase;
     }
 
-    public void setProjectType(ProjectType projectType) {
-        this.projectType = projectType;
+    public void setPhase(Phase phase) {
+        this.phase = phase;
     }
 
     public String getName() {
@@ -76,27 +72,19 @@ public class Project {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public List<ChecklistItem> getChecklistItems() {
+        return checklistItems;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<Phase> getPhases() {
-        return phases;
-    }
-
-    public void setPhases(List<Phase> phases) {
-        this.phases = phases;
+    public void setChecklistItems(List<ChecklistItem> checklistItems) {
+        this.checklistItems = checklistItems;
     }
 }
