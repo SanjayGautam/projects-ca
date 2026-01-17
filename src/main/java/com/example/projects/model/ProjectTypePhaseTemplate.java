@@ -14,6 +14,31 @@ import jakarta.persistence.Table;
 public class ProjectTypePhaseTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "project_type_id")
+    private Long projectTypeId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "default_start_offset_days")
+    private Integer defaultStartOffsetDays;
+    @Column(name = "default_duration_days")
+    private Integer defaultDurationDays;
+
+    public ProjectTypePhaseTemplate() {
+    }
+
+    public ProjectTypePhaseTemplate(
+            Long id,
+            Long projectTypeId,
+            String name,
+            Integer defaultStartOffsetDays,
+            Integer defaultDurationDays
+    ) {
+        this.id = id;
+        this.projectTypeId = projectTypeId;
+        this.name = name;
+        this.defaultStartOffsetDays = defaultStartOffsetDays;
+        this.defaultDurationDays = defaultDurationDays;
     @Column(name = "project_type_phase_template_id")
     private Long id;
 
@@ -41,6 +66,12 @@ public class ProjectTypePhaseTemplate {
         this.id = id;
     }
 
+    public Long getProjectTypeId() {
+        return projectTypeId;
+    }
+
+    public void setProjectTypeId(Long projectTypeId) {
+        this.projectTypeId = projectTypeId;
     public ProjectType getProjectType() {
         return projectType;
     }
@@ -57,6 +88,20 @@ public class ProjectTypePhaseTemplate {
         this.name = name;
     }
 
+    public Integer getDefaultStartOffsetDays() {
+        return defaultStartOffsetDays;
+    }
+
+    public void setDefaultStartOffsetDays(Integer defaultStartOffsetDays) {
+        this.defaultStartOffsetDays = defaultStartOffsetDays;
+    }
+
+    public Integer getDefaultDurationDays() {
+        return defaultDurationDays;
+    }
+
+    public void setDefaultDurationDays(Integer defaultDurationDays) {
+        this.defaultDurationDays = defaultDurationDays;
     public String getDescription() {
         return description;
     }

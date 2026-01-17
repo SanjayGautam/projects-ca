@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -19,6 +21,25 @@ import java.util.List;
 public class Phase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "project_id")
+    private Long projectId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "start_date")
+    private LocalDate startDate;
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    public Phase() {
+    }
+
+    public Phase(Long id, Long projectId, String name, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.projectId = projectId;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
     @Column(name = "phase_id")
     private Long id;
 
@@ -55,6 +76,12 @@ public class Phase {
         this.id = id;
     }
 
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     public Project getProject() {
         return project;
     }
